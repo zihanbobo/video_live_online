@@ -1,7 +1,7 @@
 # video_live_online
 
 #### 介绍
-本项目为记录实际开发过程中的一次直播需求
+本项目为记录实际开发过程中的一次直播需求开发
 #### 软件架构
 软件架构说明
 基于SpringBoot+FFMPEG+Nginx+Nginx-RTMP-Module开发的视频在线直播功能
@@ -11,7 +11,6 @@
 1.  直接启动即可使用
 
 #### 使用说明
-
 1.  自行安装nginx和nginx-rtmp-module，其中nginx-rtmp-module地址为 https://github.com/arut/nginx-rtmp-module
 2.  自行安装ffmpeg，ffmpeg是实现直播功能的核心部分
 
