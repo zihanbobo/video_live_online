@@ -23,7 +23,7 @@ import java.util.Arrays;
 @Slf4j
 public class LogAspect {
 
-    @Pointcut("execution(public * com.video.live.controller.*(*.*))")
+    @Pointcut("execution(public * com.video.live.controller.*.*(*.*))")
     public void log() {
     }
 

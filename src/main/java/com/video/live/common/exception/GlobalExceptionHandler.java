@@ -1,7 +1,9 @@
 package com.video.live.common.exception;
 
 import com.video.live.common.response.ResponseResult;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 14:40
  */
-@RestControllerAdvice
+@RestControllerAdvice(annotations = {Controller.class, RestController.class})
 public class GlobalExceptionHandler {
 
 
