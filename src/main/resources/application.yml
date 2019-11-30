@@ -1,0 +1,6 @@
+server:
+  servlet:
+    context-path: /video
+spring:
+  profiles:
+    active: dev
