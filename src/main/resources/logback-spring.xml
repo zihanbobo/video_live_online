@@ -1,125 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="true" scanPeriod="30 second">
     <property name="PROJECT" value="video" />
-    <property name="ROOT" value="logs/${PROJECT}/" />
-    <property name="FILESIZE" value="10MB" />
-    <property name="MAXHISTORY" value="7" />
+    <property name="ROOT" value="logs/" />
+    <property name="maxFileSize" value="10MB" />
+    <property name="maxHistory" value="7" />
     <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss" />
+    <timestamp key="FILE_SUFFIX" datePattern="yyyy-MM-dd"/>
+    <property name="logging.pattern" value="[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n"/>
+    <property name="logging.charset" value="UTF-8"/>
     <!-- 控制台打印 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
+        <encoder>
+            <pattern>${logging.pattern}</pattern>
+            <charset>${logging.charset}</charset>
         </encoder>
     </appender>
     <!-- ERROR 输入到文件，按日期和文件大小 -->
-    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/error.%i.log</fileNamePattern>
-            <maxHistory>${MAXHISTORY}</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${FILESIZE}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-
-    <!-- WARN 输入到文件，按日期和文件大小 -->
-    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/warn.%i.log</fileNamePattern>
-            <maxHistory>${MAXHISTORY}</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${FILESIZE}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-
-    <!-- INFO 输入到文件，按日期和文件大小 -->
-    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/info.%i.log</fileNamePattern>
-            <maxHistory>${MAXHISTORY}</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${FILESIZE}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-    <!-- DEBUG 输入到文件，按日期和文件大小 -->
-    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${logging.pattern}</pattern>
+            <charset>${logging.charset}</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/debug.%i.log</fileNamePattern>
-            <maxHistory>${MAXHISTORY}</maxHistory>
+            <fileNamePattern>${ROOT}%d/%d{${FILE_SUFFIX}}_%i.log</fileNamePattern>
+            <maxHistory>${maxHistory}</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${FILESIZE}</maxFileSize>
+                <maxFileSize>${maxFileSize}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-    <!-- TRACE 输入到文件，按日期和文件大小 -->
-    <appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder charset="utf-8">
-            <pattern>[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n
-            </pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>TRACE</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy
-                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/trace.%i.log</fileNamePattern>
-            <maxHistory>${MAXHISTORY}</maxHistory>
-            <timeBasedFileNamingAndTriggeringPolicy
-                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${FILESIZE}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="FILE"/>
     </appender>
     <!-- Logger 根目录 -->
-    <root level="DEBUG">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="DEBUG" />
-        <appender-ref ref="ERROR" />
-        <appender-ref ref="WARN" />
-        <appender-ref ref="INFO" />
-        <appender-ref ref="TRACE" />
-    </root>
+    <springProfile name="dev">
+        <logger name="druid.sql.Statement"  level="DEBUG" additivity="false">
+            <appender-ref ref="ASYNC"/>
+        </logger>
+        <logger name="org.springframework.orm.jpa" level="info" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </logger>
+        <logger name="com.video.live" level="info" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </logger>
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <logger name="druid.sql.Statement"  level="DEBUG" additivity="false">
+            <appender-ref ref="ASYNC"/>
+        </logger>
+        <logger name="org.springframework.orm.jpa" level="info" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </logger>
+        <logger name="com.video.live" level="info" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </logger>
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <logger name="com.video.live" level="info" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="ASYNC" />
+        </logger>
+        <root level="info">
+            <appender-ref ref="ASYNC" />
+        </root>
+    </springProfile>
+
 </configuration>
