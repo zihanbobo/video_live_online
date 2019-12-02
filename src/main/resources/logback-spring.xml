@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="true" scanPeriod="30 second">
-    <property name="PROJECT" value="video" />
-    <property name="ROOT" value="logs/" />
-    <property name="maxFileSize" value="10MB" />
-    <property name="maxHistory" value="7" />
-    <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss" />
-    <timestamp key="FILE_SUFFIX" datePattern="yyyy-MM-dd"/>
-    <property name="logging.pattern" value="[%-5level] %d{${DATETIME}} [%thread] %logger{36} - %m%n"/>
+    <property name="logging.path" value="logs/"/>
     <property name="logging.charset" value="UTF-8"/>
+    <timestamp key="dateTime" datePattern="yyyy-MM-dd HH:mm:ss"/>
+    <timestamp key="fileSuffix" datePattern="yyyy-MM-dd"/>
+    <property name="logging.pattern" value="%d{${dateTime}} [%thread] [%-5level] %logger{50} [%L]- %m%n"/>
+    <property name="maxFileSize" value="10MB"/>
+    <property name="maxHistory" value="7"/>
+
     <!-- 控制台打印 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -15,7 +15,7 @@
             <charset>${logging.charset}</charset>
         </encoder>
     </appender>
-    <!-- ERROR 输入到文件，按日期和文件大小 -->
+    <!-- 日志输入到文件，按日期和文件大小 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${logging.pattern}</pattern>
@@ -23,11 +23,9 @@
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ROOT}%d/%d{${FILE_SUFFIX}}_%i.log</fileNamePattern>
+            <fileNamePattern>${logging.path}%d/%d{${fileSuffix}}_%i.log</fileNamePattern>
             <maxHistory>${maxHistory}</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -41,50 +39,50 @@
         <queueSize>512</queueSize>
         <appender-ref ref="FILE"/>
     </appender>
-    <!-- Logger 根目录 -->
+    <!--开发环境日志配置-->
     <springProfile name="dev">
-        <logger name="druid.sql.Statement"  level="DEBUG" additivity="false">
+        <logger name="druid.sql.Statement" level="DEBUG" additivity="false">
             <appender-ref ref="ASYNC"/>
         </logger>
         <logger name="org.springframework.orm.jpa" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </logger>
         <logger name="com.video.live" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </logger>
         <root level="info">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </root>
     </springProfile>
 
     <springProfile name="test">
-        <logger name="druid.sql.Statement"  level="DEBUG" additivity="false">
+        <logger name="druid.sql.Statement" level="DEBUG" additivity="false">
             <appender-ref ref="ASYNC"/>
         </logger>
         <logger name="org.springframework.orm.jpa" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </logger>
         <logger name="com.video.live" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </logger>
         <root level="info">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </root>
     </springProfile>
 
     <springProfile name="prod">
         <logger name="com.video.live" level="info" additivity="false">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ASYNC"/>
         </logger>
         <root level="info">
-            <appender-ref ref="ASYNC" />
+            <appender-ref ref="ASYNC"/>
         </root>
     </springProfile>
 
