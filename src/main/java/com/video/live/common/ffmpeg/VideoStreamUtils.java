@@ -37,14 +37,14 @@ public class VideoStreamUtils {
     private static final int MIN_TIME_OUT = 15;
     private static final int ONE_THREAD = 1;
 
-    private static final ConcurrentHashMap<String, VideoTaskInfo> STREM_MAP = new ConcurrentHashMap();
+    private static final ConcurrentHashMap<String, VideoTaskInfo> STREAM_MAP = new ConcurrentHashMap();
 
     public static synchronized String play(String videoURI, int timeOut) {
         VideoTaskInfo taskInfo = getTaskInfo(videoURI);
         if (Objects.nonNull(taskInfo)) {
             timeOut = timeOut < MIN_TIME_OUT ? MIN_TIME_OUT : timeOut;
             taskInfo = execute(videoURI, timeOut);
-            STREM_MAP.put(videoURI, taskInfo);
+            STREAM_MAP.put(videoURI, taskInfo);
         }
         return taskInfo.getTaskId();
     }
@@ -91,7 +91,7 @@ public class VideoStreamUtils {
     }
 
     private static VideoTaskInfo getTaskInfo(String videoURI) {
-        return STREM_MAP.get(videoURI);
+        return STREAM_MAP.get(videoURI);
     }
 
     private static String getHLSPath(String taskId) {

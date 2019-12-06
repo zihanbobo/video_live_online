@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadUtil {
 
-    private static final int CORE_POOL_SIZE = 10;
-    private static final int MAX_POOL_SIZE = 20;
+    private static final int CORE_POOL_SIZE = 20;
+    private static final int MAX_POOL_SIZE = 35;
     private static final long KEEP_LIVE_TIME = 60L;
     private static final BlockingQueue<Runnable> BLOCKING_QUEUE = new LinkedBlockingQueue();
     private static final ThreadPoolExecutor POOL;
@@ -23,7 +23,7 @@ public class ThreadUtil {
                 KEEP_LIVE_TIME,
                 TimeUnit.SECONDS,
                 BLOCKING_QUEUE,
-                new ThreadPoolExecutor.DiscardPolicy());
+                new ThreadPoolExecutor.DiscardOldestPolicy ());
     }
 
     public static void execute(Runnable runnable) {
