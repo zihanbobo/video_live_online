@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * rest请求响应类
+ *
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 11:08
  */
@@ -54,8 +56,8 @@ public class ResponseResult<T> implements Serializable {
         return responseResult;
     }
 
-    public static <T> ResponseResult<T> failed(Integer code,String desc){
-        ResponseResult responseResult=new ResponseResult();
+    public static <T> ResponseResult<T> failed(Integer code, String desc) {
+        ResponseResult responseResult = new ResponseResult();
         responseResult.setCode(code);
         responseResult.setDesc(desc);
         return responseResult;

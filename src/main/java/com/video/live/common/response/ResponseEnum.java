@@ -2,6 +2,8 @@ package com.video.live.common.response;
 
 
 /**
+ * rest响应枚举类
+ *
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 11:17
  */
