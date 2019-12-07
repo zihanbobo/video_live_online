@@ -28,7 +28,7 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate(OkHttp3ClientHttpRequestFactory httpRequestFactory) {
         RestTemplate restTemplate = new RestTemplate(httpRequestFactory);
-        restTemplate.setMessageConverters(getConverter());
+        //restTemplate.setMessageConverters(getConverter());
         return restTemplate;
     }
 
