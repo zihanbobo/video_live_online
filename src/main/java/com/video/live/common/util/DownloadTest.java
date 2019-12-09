@@ -35,7 +35,7 @@ public class DownloadTest {
                     for (File yFile :yFiles){
                         String y = yFile.getName();
                         y = StrUtil.removeAll(y, ".png");
-                        DownloadMapUtils.downloadImg(z,x,y);
+                        MapUtils.downloadImg(z,x,y);
                     }
                 }
             }
