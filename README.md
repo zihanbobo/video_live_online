@@ -9,6 +9,9 @@
 #### 安装教程
 
 1.  直接启动即可使用
+2.  部署完成后使用OBS进行推流测试 ，第一个视频为桌面推流视频，第二个为接入的央视视频流
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1212/172803_10befb15_1732571.png "屏幕截图.png")
+
 
 #### 使用说明
 1.  自行安装nginx和nginx-rtmp-module，其中nginx-rtmp-module地址为 https://github.com/arut/nginx-rtmp-module
