@@ -4,6 +4,7 @@ import com.video.live.common.properties.SwaggerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -19,6 +20,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Author: Deng Yunhu
  * @Date: 2019/11/25 17:03
  */
+@Profile({"dev", "test"})
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
