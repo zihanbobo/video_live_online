@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 @Order(1)
 public class LogAspect {
 
-    private Logger log = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     private ThreadLocal<Stopwatch> stopWatchThreadLocal = new ThreadLocal<>();
 
@@ -61,34 +61,34 @@ public class LogAspect {
         String name = signature.getName();
         Object[] args = joinPoint.getArgs();
         Method method = signature.getMethod();
-        log.info("----------请求开始------------");
-        log.info("请求IP:{}", IpUtils.getIdAddr(request));
-        log.info("请求URI:{}", requestURI);
-        log.info("请求方式:{}", requestMethod);
-        log.info("请求方法:{}", declaringTypeName.concat(".").concat(name));
+        logger.info("----------请求开始------------");
+        logger.info("请求IP:{}", IpUtils.getIdAddr(request));
+        logger.info("请求URI:{}", requestURI);
+        logger.info("请求方式:{}", requestMethod);
+        logger.info("请求方法:{}", declaringTypeName.concat(".").concat(name));
         if (method.isAnnotationPresent(ApiOperation.class)) {
             String desc = method.getAnnotation(ApiOperation.class).value();
-            log.info("方法描述:{}", desc);
+            logger.info("方法描述:{}", desc);
         }
-        log.info("方法入参:{}", Arrays.toString(args));
+        logger.info("方法入参:{}", Arrays.toString(args));
     }
 
     @AfterReturning(returning = "object", pointcut = "webLog()")
     public void afterReturning(Object object) {
-        log.info("请求响应:{}", JSON.toJSONString(object));
+        logger.info("请求响应:{}", JSON.toJSONString(object));
         printAfterReturning();
     }
 
     @AfterThrowing(pointcut = "webLog()")
     public void afterThrowing(JoinPoint joinPoint) {
-        log.info("接口执行异常,异常描述");
+        logger.info("接口执行异常,异常描述");
         printAfterReturning();
     }
 
     private void printAfterReturning() {
         Stopwatch stopwatch = stopWatchThreadLocal.get();
         stopwatch.stop();
-        log.info("请求耗时 {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-        log.info("----------请求结束------------");
+        logger.info("请求耗时 {} ms", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        logger.info("----------请求结束------------");
     }
 }

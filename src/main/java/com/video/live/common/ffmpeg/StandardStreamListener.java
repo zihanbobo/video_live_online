@@ -2,9 +2,11 @@ package com.video.live.common.ffmpeg;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
@@ -17,8 +19,9 @@ import java.util.regex.Pattern;
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 16:08
  */
-@Slf4j
 public class StandardStreamListener implements Runnable {
+
+    private static final Logger logger = LoggerFactory.getLogger(StandardStreamListener.class);
 
     private String videoURI;
 
@@ -38,15 +41,15 @@ public class StandardStreamListener implements Runnable {
             String msg = null;
             while ((msg = reader.readLine()) != null) {
                 if (!executeResult) {
-                    log.info("推流信息-->" + msg);
+                    logger.info("推流信息-->" + msg);
                 }
                 if (!executeResult && Pattern.matches(push_success_regex, msg) && FileUtil.exist(hlsFilePath)) {
                     this.executeResult = true;
                     countDown();
                 }
             }
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            logger.error("推流IO异常中断");
         } finally {
             IoUtil.close(reader);
             countDown();
