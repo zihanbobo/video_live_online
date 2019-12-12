@@ -45,12 +45,6 @@ public class ThreadPoolUtil {
         }
     }
 
-    public static void printQueue() {
-        for (Runnable runnable : BLOCKING_QUEUE) {
-            System.out.println(runnable);
-        }
-    }
-
     public static void shutDownNow() {
         POOL.shutdownNow();
     }

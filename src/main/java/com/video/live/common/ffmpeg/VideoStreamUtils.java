@@ -6,7 +6,7 @@ import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.video.live.common.exception.ServerException;
 import com.video.live.common.thread.ThreadPoolUtil;
-import com.video.live.common.util.PathUtil;
+import com.video.live.common.util.PathUtils;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -95,7 +95,7 @@ public class VideoStreamUtils {
     }
 
     private static String getHLSPath(String taskId) {
-        return StrBuilder.create(PathUtil.getApplicationJarHome())
+        return StrBuilder.create(PathUtils.getApplicationJarHome())
                 .append(taskId)
                 .append(HLS_BASE_URI)
                 .toString();

@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * RestTemplate 服务支持类
+ *
  * @Author: Deng Yunhu
  * @Date: 2019/12/9 14:48
  */
@@ -39,6 +41,7 @@ public class RestTemplateSupport {
             throw new ServerException("文件下载失败");
         }
     }
+
     private static RestTemplate getRestTemplate() {
         if (Objects.isNull(restTemplate)) {
             return new RestTemplate();

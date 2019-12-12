@@ -11,7 +11,7 @@ import java.util.Objects;
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 16:59
  */
-public class ValidationUtil {
+public class ValidationUtils {
 
     public static void checkBindingResult(BindingResult bindResult) {
         List<ObjectError> allErrors = bindResult.getAllErrors();
