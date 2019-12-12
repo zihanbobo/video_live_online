@@ -12,7 +12,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -37,7 +39,6 @@ public class RestTemplateSupport {
             throw new ServerException("文件下载失败");
         }
     }
-
     private static RestTemplate getRestTemplate() {
         if (Objects.isNull(restTemplate)) {
             return new RestTemplate();

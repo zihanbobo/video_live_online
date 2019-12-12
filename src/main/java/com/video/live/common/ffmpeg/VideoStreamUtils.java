@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import com.video.live.common.exception.ServerException;
-import com.video.live.common.thread.ThreadUtil;
+import com.video.live.common.thread.ThreadPoolUtil;
 import com.video.live.common.util.PathUtil;
 
 import java.util.Objects;
@@ -60,8 +60,8 @@ public class VideoStreamUtils {
             CountDownLatch countDownLatch = new CountDownLatch(ONE_THREAD);
             errorListener = ErrorStreamListener.build(videoURI, process.getErrorStream());
             standardListener = StandardStreamListener.build(videoURI, getHLSPath(taskId), countDownLatch, process.getInputStream());
-            ThreadUtil.execute(standardListener);
-            ThreadUtil.execute(errorListener);
+            ThreadPoolUtil.execute(standardListener);
+            ThreadPoolUtil.execute(errorListener);
             countDownLatch.await(timeOut, TimeUnit.SECONDS);
             if (!standardListener.getExecuteResult()) {
                 destroy(process, errorListener, standardListener);
@@ -85,7 +85,7 @@ public class VideoStreamUtils {
         RuntimeUtil.destroy(process);
         for (Runnable runnable : runnables) {
             if (Objects.nonNull(runnable)) {
-                ThreadUtil.remove(runnable);
+                ThreadPoolUtil.remove(runnable);
             }
         }
     }
