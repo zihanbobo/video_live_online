@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 日志切面
+ *
  * @Author: Deng Yunhu
  * @Date: 2019/11/26 11:27
  */
@@ -36,7 +38,13 @@ public class LogAspect {
 
     private ThreadLocal<Stopwatch> stopWatchThreadLocal = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.video.live.controller.*.*(..))")
+    @Pointcut("within(com.video.live.controller.*)&&(" +
+            "@annotation(org.springframework.web.bind.annotation.RequestMapping)||" +
+            "@annotation(org.springframework.web.bind.annotation.PostMapping)||" +
+            "@annotation(org.springframework.web.bind.annotation.GetMapping)||" +
+            "@annotation(org.springframework.web.bind.annotation.DeleteMapping)||" +
+            "@annotation(org.springframework.web.bind.annotation.PutMapping)||" +
+            "@annotation(org.springframework.web.bind.annotation.PatchMapping))")
     public void webLog() {
     }
 
