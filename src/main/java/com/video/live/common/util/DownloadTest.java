@@ -20,7 +20,7 @@ public class DownloadTest {
     }
 
     public static String[] getZxy() {
-        File baseFile = new File("D:\\BaiduNetdiskDownload\\高德离线地图-好用\\Leaflet.ChineseTmsProviders-master\\examples\\img");
+        File baseFile = new File("D:\\BaiduNetdiskDownload\\高德离线地图-好用\\Leaflet.ChineseTmsProviders-master\\examples\\map_gaode_yellow");
         if (!FileUtil.exist(baseFile)) {
             return null;
         }
@@ -29,7 +29,9 @@ public class DownloadTest {
             if (zFile.isDirectory()) {
                 String z = zFile.getName();
                 Integer integer = Integer.valueOf(z);
-
+                if (integer>13){
+                    //continue;
+                }
                 File[] xFiles = zFile.listFiles();
                 for (File xFile : xFiles) {
                     String x = xFile.getName();

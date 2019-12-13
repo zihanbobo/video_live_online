@@ -44,7 +44,7 @@ public class RestTemplateSupport {
 
     private static RestTemplate getRestTemplate() {
         if (Objects.isNull(restTemplate)) {
-            return new RestTemplate();
+            restTemplate = new RestTemplate();
         }
         return restTemplate;
     }
