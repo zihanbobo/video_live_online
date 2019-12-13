@@ -90,7 +90,7 @@
      * Logs plain debug messages. Similar to `console.log`.
      *
      * Due to [limitations](https://github.com/jsdoc3/jsdoc/issues/955#issuecomment-313829149)
-     * of our JSDoc template, we cannot properly document this as both a function
+     * of our JSDoc templates, we cannot properly document this as both a function
      * and a namespace, so its function signature is documented here.
      *
      * #### Arguments
@@ -29436,7 +29436,7 @@
    * purpose because it avoids any potential for unintended initialization.
    *
    * Due to [limitations](https://github.com/jsdoc3/jsdoc/issues/955#issuecomment-313829149)
-   * of our JSDoc template, we cannot properly document this as both a function
+   * of our JSDoc templates, we cannot properly document this as both a function
    * and a namespace, so its function signature is documented here.
    *
    * #### Arguments
@@ -32467,7 +32467,7 @@
 
   var identifierPattern = /\$([A-z]*)(?:(%0)([0-9]+)d)?\$/g;
   /**
-   * Replaces template identifiers with corresponding values. To be used as the callback
+   * Replaces templates identifiers with corresponding values. To be used as the callback
    * for String.prototype.replace
    *
    * @name replaceCallback
@@ -32487,7 +32487,7 @@
 
   /**
    * Returns a function to be used as a callback for String.prototype.replace to replace
-   * template identifiers
+   * templates identifiers
    *
    * @param {Obect} values
    *        Object containing values that shall be used to replace known identifiers
@@ -32535,7 +32535,7 @@
     };
   };
   /**
-   * Constructs a segment url from a template string
+   * Constructs a segment url from a templates string
    *
    * @param {string} url
    *        Template string to construct url from
@@ -33093,7 +33093,7 @@
    * Contains all Segment information for its containing AdaptationSet
    *
    * @typedef {Object} SegmentInformation
-   * @property {Object|undefined} template
+   * @property {Object|undefined} templates
    *           Contains the attributes for the SegmentTemplate node
    * @property {Object[]|undefined} timeline
    *           Contains a list of atrributes for each S node within the SegmentTimeline node

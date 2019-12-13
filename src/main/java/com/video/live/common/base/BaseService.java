@@ -9,7 +9,7 @@ import java.util.Optional;
  */
 public interface BaseService<T, ID> {
 
-    BaseDao<T> getRepository();
+    BaseDao<T, ID> getRepository();
 
     default Optional<T> save(T entity) {
         return Optional.of(getRepository().save(entity));

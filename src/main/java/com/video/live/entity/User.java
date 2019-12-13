@@ -2,6 +2,9 @@ package com.video.live.entity;
 
 import com.video.live.common.base.BaseEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +18,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
-@Data
+@Getter
+@Setter
+@ToString
 public class User extends BaseEntity {
 
     @Column(name = "username", length = 50)
