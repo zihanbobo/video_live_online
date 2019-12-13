@@ -10,5 +10,4 @@ public class VideoLiveApplication {
     public static void main(String[] args) {
         SpringApplication.run(VideoLiveApplication.class, args);
     }
-
 }

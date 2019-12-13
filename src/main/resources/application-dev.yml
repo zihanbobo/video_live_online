@@ -34,3 +34,5 @@ spring:
         url-pattern: /druid/*
         login-username: admin
         login-password: admin@123
+        allow: 192.168.40.76
+        enabled: true
