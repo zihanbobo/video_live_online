@@ -1,6 +1,7 @@
 package com.video.live;
 
 import com.google.common.collect.Lists;
+import com.video.live.common.util.JWTUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,15 @@ public class VideoLiveApplicationTest {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Test
+    public void jwtTest(){
+        String token = JWTUtils.generate("dyh");
+        System.out.println(token);
+
+        String userName = JWTUtils.getUserName(token);
+        System.out.println(userName);
+    }
 
     @Test
     public void contextLoads() {
