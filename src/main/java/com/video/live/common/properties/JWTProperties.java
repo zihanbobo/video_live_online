@@ -23,7 +23,4 @@ public class JWTProperties {
 
     @Value("${jwt.expires.time}")
     private Long ExpiresTime;
-
-    @Value("${jwt.claim.key}")
-    private String claimKey;
 }

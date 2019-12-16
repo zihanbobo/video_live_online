@@ -22,25 +22,14 @@ public class JWTUtils {
     private static final JWTProperties properties = SpringContextHolder.getBean(JWTProperties.class);
 
     /**
-     * 生成 token
+     * 生成token
      *
-     * @param value payload 中声明的用户名
+     * @param value payload 声明的value
      * @return token
      */
     public static String generate(String value) {
-        return generate(properties.getClaimKey(), value);
-    }
-
-    /**
-     * 生成token
-     *
-     * @param key   payload 中的key
-     * @param value payload 的value
-     * @return token
-     */
-    public static String generate(String key, String value) {
         return JWT.create()
-                .withClaim(key, value)
+                .withSubject(value)
                 .withExpiresAt(new Date(System.currentTimeMillis() + properties.getExpiresTime()))
                 .sign(Algorithm.HMAC256(properties.getSalt()));
     }
@@ -64,16 +53,14 @@ public class JWTUtils {
     }
 
     /**
-     * 从token中获取payload 信息
+     * 从token中获取 payload 声明信息
      *
      * @param token token
      * @return payload 信息
      */
     public static String getUserName(String token) {
         try {
-            return JWT.decode(token)
-                    .getClaim(properties.getClaimKey())
-                    .asString();
+            return JWT.decode(token).getSubject();
         } catch (JWTVerificationException e) {
             logger.warn("无效的token");
         }
