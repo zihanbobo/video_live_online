@@ -16,13 +16,10 @@ import lombok.Setter;
 public class ServerException extends BaseException {
 
     public ServerException() {
-        super();
-        setErrorCode(ResponseEnum.FAILED.getCode());
-        setErrorMsg(ResponseEnum.FAILED.getDesc());
+        super(ResponseEnum.FAILED);
     }
 
     public ServerException(String errorMsg) {
-        setErrorMsg(errorMsg);
-        setErrorCode(ResponseEnum.FAILED.getCode());
+        super(ResponseEnum.FAILED.getCode(), errorMsg);
     }
 }

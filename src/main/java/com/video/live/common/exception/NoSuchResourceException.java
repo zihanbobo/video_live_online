@@ -10,16 +10,11 @@ import com.video.live.common.response.ResponseEnum;
 public class NoSuchResourceException extends BaseException {
 
     public NoSuchResourceException() {
-        super();
-        ResponseEnum noSuchException = ResponseEnum.NO_SUCH_EXCEPTION;
-        setErrorCode(noSuchException.getCode());
-        setErrorMsg(noSuchException.getDesc());
+        super(ResponseEnum.NO_SUCH_EXCEPTION);
     }
 
     public NoSuchResourceException(String errorMsg) {
-        ResponseEnum noSuchException = ResponseEnum.NO_SUCH_EXCEPTION;
-        setErrorMsg(errorMsg);
-        setErrorCode(noSuchException.getCode());
+        super(ResponseEnum.NO_SUCH_EXCEPTION.getCode(), errorMsg);
     }
 
 }

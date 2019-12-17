@@ -10,13 +10,10 @@ import com.video.live.common.response.ResponseEnum;
 public class OperationNotAllowException extends BaseException {
 
     public OperationNotAllowException() {
-        super();
-        setErrorCode(ResponseEnum.OPERATION_NOT_ALLOW.getCode());
-        setErrorMsg(ResponseEnum.OPERATION_NOT_ALLOW.getDesc());
+        super(ResponseEnum.OPERATION_NOT_ALLOW);
     }
 
     public OperationNotAllowException(String errorMsg) {
-        setErrorCode(ResponseEnum.OPERATION_NOT_ALLOW.getCode());
-        setErrorMsg(errorMsg);
+        super(ResponseEnum.OPERATION_NOT_ALLOW.getCode(), errorMsg);
     }
 }
