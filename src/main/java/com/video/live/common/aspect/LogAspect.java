@@ -38,7 +38,7 @@ public class LogAspect {
 
     private ThreadLocal<Stopwatch> stopWatchThreadLocal = new ThreadLocal<>();
 
-    @Pointcut("within(com.video.live.controller.*)&&(" +
+    @Pointcut("within(com.video.live.web.controller.*)&&(" +
             "@annotation(org.springframework.web.bind.annotation.RequestMapping)||" +
             "@annotation(org.springframework.web.bind.annotation.PostMapping)||" +
             "@annotation(org.springframework.web.bind.annotation.GetMapping)||" +

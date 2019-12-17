@@ -1,7 +1,7 @@
-package com.video.live.service.impl;
+package com.video.live.web.service.impl;
 
 import com.video.live.common.ffmpeg.VideoStreamUtils;
-import com.video.live.service.VideoService;
+import com.video.live.web.service.VideoService;
 import org.springframework.stereotype.Service;
 
 /**

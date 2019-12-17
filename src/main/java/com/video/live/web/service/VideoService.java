@@ -1,4 +1,4 @@
-package com.video.live.service;
+package com.video.live.web.service;
 
 /**
  * 视频服务类接口
