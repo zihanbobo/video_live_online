@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2019/12/17 14:24
  */
 @RestController
-@Api(tags = "权限管理接口")
+@Api(tags = "角色权限管理接口")
 public class PermissionController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class PermissionController {
     }
 
 
-    @ApiOperation("添加角色")
+    @ApiOperation("添加角色和权限")
     @PostMapping(value = "/user/role")
     public ResponseResult addRole(@Validated @RequestBody RoleInputDTO inputDTO, BindingResult bindingResult) {
         ValidationUtils.checkBindingResult(bindingResult);

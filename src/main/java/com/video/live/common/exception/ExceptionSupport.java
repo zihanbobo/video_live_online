@@ -16,7 +16,7 @@ public class ExceptionSupport {
         return () -> new OperationNotAllowException(errorMsg);
     }
 
-    public static Supplier<ServerException> serverExceptionSupplier(String errorMsg){
-        return ()->new ServerException(errorMsg);
+    public static Supplier<ServerException> serverExceptionSupplier(String errorMsg) {
+        return () -> new ServerException(errorMsg);
     }
 }
