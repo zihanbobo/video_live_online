@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class Permission extends BaseEntity {
 
     @Column(name = "permission_name", length = 50)
-    private String permission_name;
+    private String permissionName;
 
     @Column(name = "allow_uri", length = 50)
     private String allowUri;

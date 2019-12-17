@@ -8,4 +8,6 @@ import com.video.live.entity.User;
  * @Date: 2019/12/13 16:27
  */
 public interface UserDao extends BaseDao<User,Long> {
+
+    long countByUserName(String userName);
 }

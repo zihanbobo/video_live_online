@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 import static com.video.live.common.exception.ExceptionSupport.noSuchResourceExceptionSupplier;
 import static com.video.live.common.exception.ExceptionSupport.serverExceptionSupplier;
@@ -45,7 +46,11 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void addPermission(PermissionInputDTO inputDTO) {
-        Permission permission = EntityConvert.convert(inputDTO, Permission.class);
+        Permission permission = permissionDao.findByAllowUri(inputDTO.getAllowUri());
+        if (Objects.nonNull(permission)) {
+            throw new OperationNotAllowException("该权限已经存在");
+        }
+        permission = EntityConvert.convert(inputDTO, Permission.class);
         this.save(permission);
     }
 

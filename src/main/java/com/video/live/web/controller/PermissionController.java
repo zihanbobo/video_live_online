@@ -26,7 +26,7 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @ApiOperation("添加权限")
-    @PostMapping(value = "/user/permission")
+    @PostMapping(value = "/permission")
     public ResponseResult addPermission(@Validated @RequestBody PermissionInputDTO inputDTO, BindingResult bindingResult) {
         ValidationUtils.checkBindingResult(bindingResult);
         permissionService.addPermission(inputDTO);
@@ -35,7 +35,7 @@ public class PermissionController {
 
 
     @ApiOperation("添加角色和权限")
-    @PostMapping(value = "/user/role")
+    @PostMapping(value = "/permission/role")
     public ResponseResult addRole(@Validated @RequestBody RoleInputDTO inputDTO, BindingResult bindingResult) {
         ValidationUtils.checkBindingResult(bindingResult);
         permissionService.addRole(inputDTO);

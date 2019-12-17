@@ -21,7 +21,7 @@ public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String desc;
     private T data;
-    private Date date = new Date();
+    private Date time = new Date();
 
     public ResponseResult() {
     }
