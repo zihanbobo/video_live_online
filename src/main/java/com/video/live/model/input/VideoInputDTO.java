@@ -1,4 +1,4 @@
-package com.video.live.model;
+package com.video.live.model.input;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

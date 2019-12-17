@@ -9,9 +9,15 @@ package com.video.live.common.response;
  */
 public enum ResponseEnum {
 
-    SUCCESS("SUCCESS", 200),
+    SUCCESS("SUCCESS", 2000),
 
-    FAILED("FAILED", 500);
+    FAILED("FAILED", 5000),
+
+    OPERATION_NOT_ALLOW("操作不允许",4003),
+
+    NO_SUCH_EXCEPTION("资源不存在",4004);
+
+
 
     private Integer code;
 

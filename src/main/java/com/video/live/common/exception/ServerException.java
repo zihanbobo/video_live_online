@@ -1,5 +1,6 @@
 package com.video.live.common.exception;
 
+import com.video.live.common.base.BaseException;
 import com.video.live.common.response.ResponseEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,23 +13,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ServerException extends RuntimeException {
-
-    private Integer errorCode;
-
-    private String errorMsg;
+public class ServerException extends BaseException {
 
     public ServerException() {
         super();
-    }
-
-    public ServerException(Integer errorCode, String errorMsg) {
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+        setErrorCode(ResponseEnum.FAILED.getCode());
+        setErrorMsg(ResponseEnum.FAILED.getDesc());
     }
 
     public ServerException(String errorMsg) {
-        this.errorMsg = errorMsg;
-        this.errorCode = ResponseEnum.FAILED.getCode();
+        setErrorMsg(errorMsg);
+        setErrorCode(ResponseEnum.FAILED.getCode());
     }
 }

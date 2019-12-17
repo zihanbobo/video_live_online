@@ -2,7 +2,7 @@ package com.video.live.web.controller;
 
 import com.video.live.common.response.ResponseResult;
 import com.video.live.common.util.ValidationUtils;
-import com.video.live.model.VideoInputDTO;
+import com.video.live.model.input.VideoInputDTO;
 import com.video.live.web.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
