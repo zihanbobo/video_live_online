@@ -20,6 +20,11 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(Throwable.class)
+    public ResponseResult throwableHandler(Throwable e) {
+        return ResponseResult.failed();
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseResult exceptionHandler(Exception e) {
         print(e);

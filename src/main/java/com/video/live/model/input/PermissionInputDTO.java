@@ -22,6 +22,7 @@ public class PermissionInputDTO {
     @NotNull(message = "权限名称不能为空")
     private String permissionName;
 
+    @ApiModelProperty("可访问uri")
     @NotNull(message = "可访问uri不能为空")
     private String allowUri;
 }

@@ -26,5 +26,6 @@ public class RoleInputDTO {
     private String roleName;
 
     @NotEmpty(message = "权限不能为空")
+    @ApiModelProperty(value = "权限id",dataType = "list")
     private List<Long> permissionId;
 }

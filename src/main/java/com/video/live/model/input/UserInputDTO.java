@@ -23,17 +23,19 @@ public class UserInputDTO {
     @NotBlank(message = "用户名不能为空")
     private String userName;
 
-    @ApiModelProperty(name = "性别")
+    @ApiModelProperty( "性别")
     @NotBlank(message = "性别不能为空")
     private String sex;
 
-    @ApiModelProperty(name = "性别")
+    @ApiModelProperty( value = "性别",dataType = "int")
     @NotNull(message = "年龄不能为空")
     private Integer age;
 
+    @ApiModelProperty("电话")
     @NotBlank(message = "电话不能为空")
     private String phone;
 
+    @ApiModelProperty("角色id")
     @NotNull(message = "角色不能为空")
     private Long roleId;
 }
