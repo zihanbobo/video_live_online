@@ -15,8 +15,9 @@ public enum ResponseEnum {
 
     OPERATION_NOT_ALLOW("操作不允许",4003),
 
-    NO_SUCH_EXCEPTION("资源不存在",4004);
+    NO_SUCH_EXCEPTION("资源不存在",4004),
 
+    ACCESS_DENIED("权限不足",4005);
 
 
     private Integer code;

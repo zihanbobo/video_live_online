@@ -12,8 +12,8 @@ import cn.hutool.core.util.ReflectUtil;
 public class EntityConvert {
 
     public static <T, S> T convert(S source, Class<T> targetClazz) {
-        T t=ReflectUtil.newInstance(targetClazz);
-        BeanUtil.copyProperties(source,t);
+        T t = ReflectUtil.newInstance(targetClazz);
+        BeanUtil.copyProperties(source, t);
         return t;
     }
 

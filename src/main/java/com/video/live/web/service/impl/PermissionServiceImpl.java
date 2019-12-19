@@ -1,5 +1,6 @@
 package com.video.live.web.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.video.live.common.base.BaseDao;
 import com.video.live.common.exception.OperationNotAllowException;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,5 +79,10 @@ public class PermissionServiceImpl implements PermissionService {
             rolePermissionList.add(rolePermission);
         }
         rolePermissionService.save(rolePermissionList).orElseThrow(serverExceptionSupplier("角色信息保存失败"));
+    }
+
+    @Override
+    public List<Permission> findByUserName(String userName) {
+        return permissionDao.findByUserName(userName).orElse(Collections.emptyList());
     }
 }

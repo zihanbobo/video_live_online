@@ -1,10 +1,16 @@
 package com.video.live.common.response;
 
+import com.video.live.common.exception.ServerException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.http.MediaType;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -48,6 +54,14 @@ public class ResponseResult<T> implements Serializable {
         return responseResult;
     }
 
+    public static ResponseResult<ResponseEnum> failed(ResponseEnum responseEnum){
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setCode(responseEnum.getCode());
+        responseResult.setDesc(responseEnum.getDesc());
+        responseResult.setData(null);
+        return responseResult;
+    }
+
     public static <T> ResponseResult<T> failed() {
         ResponseResult responseResult = new ResponseResult();
         responseResult.setCode(ResponseEnum.FAILED.getCode());
@@ -61,5 +75,16 @@ public class ResponseResult<T> implements Serializable {
         responseResult.setCode(code);
         responseResult.setDesc(desc);
         return responseResult;
+    }
+
+    public static <T> void out(HttpServletResponse response, T message) {
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        try (PrintWriter writer = response.getWriter()) {
+            writer.print(message);
+            writer.flush();
+        } catch (Exception e) {
+            throw new ServerException("消息输出失败");
+        }
     }
 }
