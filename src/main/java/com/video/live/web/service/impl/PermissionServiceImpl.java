@@ -80,9 +80,4 @@ public class PermissionServiceImpl implements PermissionService {
         }
         rolePermissionService.save(rolePermissionList).orElseThrow(serverExceptionSupplier("角色信息保存失败"));
     }
-
-    @Override
-    public List<Permission> findByUserName(String userName) {
-        return permissionDao.findByUserName(userName).orElse(Collections.emptyList());
-    }
 }
