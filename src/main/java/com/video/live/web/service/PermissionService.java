@@ -35,12 +35,4 @@ public interface PermissionService extends BaseService<Permission, Long> {
      * @param inputDTO 输入的角色信息
      */
     void addRole(RoleInputDTO inputDTO);
-
-    /**
-     * 根据用户名查询用户权限
-     *
-     * @param userName 用户权限
-     * @return 用户权限集合
-     */
-    List<Permission> findByUserName(String userName);
 }
