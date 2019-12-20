@@ -1,11 +1,11 @@
 package com.video.live.sucurity;
 
-import com.video.live.sucurity.filter.JwtAuthenticationFilter;
-import com.video.live.sucurity.hanlder.AuthFailureHandler;
-import com.video.live.sucurity.hanlder.AuthLogoutHandler;
-import com.video.live.sucurity.hanlder.AuthSuccessHandler;
-import com.video.live.sucurity.hanlder.AuthenticationEntryPointHandler;
-import com.video.live.sucurity.hanlder.AuthenticationHandler;
+import com.video.live.sucurity.filter.JwtAuthenticationTokenFilter;
+import com.video.live.sucurity.hanlder.AjaxAuthenticationFailureHandler;
+import com.video.live.sucurity.hanlder.AjaxLogoutSuccessHandler;
+import com.video.live.sucurity.hanlder.AjaxAuthenticationSuccessHandler;
+import com.video.live.sucurity.hanlder.AjaxAuthenticationEntryPointHandler;
+import com.video.live.sucurity.hanlder.AjaxAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,25 +24,25 @@ import org.springframework.stereotype.Component;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter; // JWT拦截器
 
     @Autowired
-    private AuthenticationEntryPointHandler entryPointHandler;
+    private AjaxAuthenticationEntryPointHandler entryPointHandler;//未登陆handler
 
     @Autowired
-    private AuthenticationHandler accessDeniedHandler;
+    private AjaxAccessDeniedHandler accessDeniedHandler; //无权限访问handler
 
     @Autowired
-    private AuthFailureHandler failureHandler;
+    private AjaxAuthenticationFailureHandler failureHandler; //登陆失败handler
 
     @Autowired
-    private AuthLogoutHandler logoutHandler;
+    private AjaxLogoutSuccessHandler logoutHandler;//退出handler
 
     @Autowired
-    private AuthSuccessHandler successHandler;
+    private AjaxAuthenticationSuccessHandler successHandler;//登陆成功handler
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder; //定义密码加密
 
     @Autowired
     private UserDetailsServerImpl detailsServer;
@@ -55,13 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-
+        String[] ignores=new String[]{""};
+        web.ignoring().mvcMatchers(ignores);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and()
-                .csrf().disable()
+        http.cors().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -69,20 +69,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .access("@rbacAuthorityManager.hasPermission(request,authentication)")
+                .access("@RBACAuthorityManager.hasPermission(request,authentication)")
                 .and()
                 .formLogin()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
-
                 .and()
                 .logout()
                 .logoutSuccessHandler(logoutHandler)
-                .permitAll();
-            http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-            http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+            http.userDetailsService(detailsServer);
+            http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     public String encoder(String pwd) {

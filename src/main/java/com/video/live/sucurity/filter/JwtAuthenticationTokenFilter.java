@@ -30,7 +30,7 @@ import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
  * @Date: 2019/12/19 14:06
  */
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsServerImpl userDetailsServer;
@@ -43,13 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } else {
             token = null;
         }
-        boolean verify = JWTUtils.verify(token);
         String userName = JWTUtils.getUserName(token);
-        if (!verify || Objects.isNull(userName)) {
-            ResponseResult.out(response, ResponseResult.failed(ResponseEnum.ACCESS_DENIED));
-            return;
-        }
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (StrUtil.isNotEmpty(userName) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsServer.loadUserByUsername(userName);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

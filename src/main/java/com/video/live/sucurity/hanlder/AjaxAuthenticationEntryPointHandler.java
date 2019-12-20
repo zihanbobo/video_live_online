@@ -18,9 +18,9 @@ import java.io.IOException;
  * @Date: 2019/12/19 16:31
  */
 @Component
-public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint {
+public class AjaxAuthenticationEntryPointHandler implements AuthenticationEntryPoint {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationEntryPointHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(AjaxAuthenticationEntryPointHandler.class);
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {

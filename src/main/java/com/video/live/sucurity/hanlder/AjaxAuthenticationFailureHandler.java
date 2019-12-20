@@ -20,9 +20,9 @@ import java.io.IOException;
  * @Date: 2019/12/19 16:34
  */
 @Component
-public class AuthFailureHandler implements AuthenticationFailureHandler {
+public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthFailureHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(AjaxAuthenticationFailureHandler.class);
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {

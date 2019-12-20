@@ -16,7 +16,7 @@ import java.io.IOException;
  * @Date: 2019/12/19 16:36
  */
 @Component
-public class AuthSuccessHandler implements AuthenticationSuccessHandler {
+public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 

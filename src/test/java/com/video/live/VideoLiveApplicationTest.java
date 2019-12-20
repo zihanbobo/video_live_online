@@ -2,6 +2,12 @@ package com.video.live;
 
 import com.google.common.collect.Lists;
 import com.video.live.common.util.JWTUtils;
+import com.video.live.dao.RoleDao;
+import com.video.live.dao.UserDao;
+import com.video.live.dao.UserRoleDao;
+import com.video.live.entity.Role;
+import com.video.live.entity.User;
+import com.video.live.entity.UserRole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +34,32 @@ public class VideoLiveApplicationTest {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Autowired
+    private RoleDao roleDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Test
+    public void addUser(){
+        User user=new User();
+        user.setAge(15);
+        user.setSex("男");
+        user.setPassword(passwordEncoder.encode("root@123"));
+        user.setUserName("root");
+        user.setPhone("13227805078");
+        Long id = userDao.save(user).getId();
+        UserRole userRole=new UserRole();
+        userRole.setUserId(id);
+        userRole.setRoleId(1L);
+        UserRole save = userRoleDao.save(userRole);
+    }
 
     @Test
     public void jwtTest(){
