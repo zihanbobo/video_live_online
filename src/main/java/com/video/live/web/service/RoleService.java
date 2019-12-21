@@ -24,6 +24,5 @@ public interface RoleService extends BaseService<Role, Long> {
      * @param userId 用户id
      * @return 用户角色
      */
-    @Query(value = "select r from role r join user_role ur on r.id=ur.role_id where ur.user_id=?!",nativeQuery = true)
     Role findByUserId(Long userId);
 }

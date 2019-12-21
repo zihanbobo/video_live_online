@@ -30,6 +30,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role findByUserId(Long userId) {
+        return roleDao.findByUserId(userId).orElseGet(Role::new);
+    }
+
+    @Override
     public BaseDao<Role, Long> getRepository() {
         return this.roleDao;
     }

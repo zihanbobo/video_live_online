@@ -25,6 +25,6 @@ public class AjaxAuthenticationEntryPointHandler implements AuthenticationEntryP
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         logger.warn("权限不足，不允许访问");
-        ResponseResult.out(response, ResponseResult.failed(ResponseEnum.ACCESS_DENIED));
+        //ResponseResult.out(response, ResponseResult.failed(ResponseEnum.ACCESS_DENIED));
     }
 }

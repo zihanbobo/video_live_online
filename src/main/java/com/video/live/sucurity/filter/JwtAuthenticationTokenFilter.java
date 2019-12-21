@@ -41,7 +41,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (StrUtil.isNotBlank(token) && StrUtil.startWith(token, TOKEN_BEARER)) {
             token = token.substring(TOKEN_BEARER.length());
         } else {
-            token = null;
+            token = "";
         }
         String userName = JWTUtils.getUserName(token);
         if (StrUtil.isNotEmpty(userName) && SecurityContextHolder.getContext().getAuthentication() == null) {

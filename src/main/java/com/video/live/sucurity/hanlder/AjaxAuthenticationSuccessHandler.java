@@ -1,5 +1,9 @@
 package com.video.live.sucurity.hanlder;
 
+import com.video.live.common.constant.EntityConstant;
+import com.video.live.common.response.ResponseResult;
+import com.video.live.common.util.JWTUtils;
+import com.video.live.sucurity.SecurityUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -19,6 +23,9 @@ import java.io.IOException;
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
+        SecurityUserDetails details =(SecurityUserDetails) authentication.getDetails();
+        String token = JWTUtils.generate(details.getUsername());
+        response.setHeader(EntityConstant.AUTHORIZATION,token);
+        ResponseResult.out(response,ResponseResult.success(token));
     }
 }

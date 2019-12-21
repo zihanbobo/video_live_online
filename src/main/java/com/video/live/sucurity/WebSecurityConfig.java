@@ -42,20 +42,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AjaxAuthenticationSuccessHandler successHandler;//登陆成功handler
 
     @Autowired
-    private PasswordEncoder passwordEncoder; //定义密码加密
+    private UserDetailsServerImpl detailsServer;
 
     @Autowired
-    private UserDetailsServerImpl detailsServer;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(detailsServer).passwordEncoder(passwordEncoder);
     }
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
-        String[] ignores=new String[]{""};
+        String[] ignores=new String[]{"/*.html","/*.js","/*.css","/*.png","/*.jpg","/login"};
         web.ignoring().mvcMatchers(ignores);
     }
 
@@ -67,10 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic().authenticationEntryPoint(entryPointHandler)
                 .and()
-                .authorizeRequests()
-                .anyRequest()
-                .access("@RBACAuthorityManager.hasPermission(request,authentication)")
-                .and()
                 .formLogin()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
@@ -78,6 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(logoutHandler)
                 .permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .access("@RBACAuthorityManager.hasPermission(request,authentication)")
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
             http.userDetailsService(detailsServer);
