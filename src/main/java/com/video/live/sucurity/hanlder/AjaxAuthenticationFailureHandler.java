@@ -26,7 +26,7 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        logger.warn("权限不足，不允许访问");
+        logger.warn("权限不足，不允许访问"+exception);
         ResponseResult.out(response, ResponseResult.failed(ResponseEnum.ACCESS_DENIED));
     }
 }

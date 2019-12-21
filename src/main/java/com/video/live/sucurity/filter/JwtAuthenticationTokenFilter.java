@@ -5,6 +5,8 @@ import com.video.live.common.response.ResponseEnum;
 import com.video.live.common.response.ResponseResult;
 import com.video.live.common.util.JWTUtils;
 import com.video.live.sucurity.UserDetailsServerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,12 +34,15 @@ import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
+    private static final Logger logger= LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+
     @Autowired
     private UserDetailsServerImpl userDetailsServer;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(AUTHORIZATION);
+        logger.info("URI="+request.getRequestURI());
         if (StrUtil.isNotBlank(token) && StrUtil.startWith(token, TOKEN_BEARER)) {
             token = token.substring(TOKEN_BEARER.length());
         } else {

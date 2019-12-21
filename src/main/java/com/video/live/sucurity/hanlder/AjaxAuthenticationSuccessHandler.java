@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.video.live.common.constant.EntityConstant.AUTHORIZATION;
+import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
+
 /**
  * 登录成功处理器
  *
@@ -23,9 +26,10 @@ import java.io.IOException;
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        SecurityUserDetails details =(SecurityUserDetails) authentication.getDetails();
+        SecurityUserDetails details =(SecurityUserDetails) authentication.getPrincipal();
         String token = JWTUtils.generate(details.getUsername());
-        response.setHeader(EntityConstant.AUTHORIZATION,token);
-        ResponseResult.out(response,ResponseResult.success(token));
+       // response.setHeader(AUTHORIZATION, TOKEN_BEARER.concat(token));
+
+        ResponseResult.out(response,ResponseResult.success(TOKEN_BEARER.concat(token)));
     }
 }

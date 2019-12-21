@@ -36,12 +36,14 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(properties.getBasePackage()))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(security());
+
     }
 
     private ApiInfo apiInfo() {
@@ -56,6 +58,6 @@ public class SwaggerConfig {
     }
 
     private List<ApiKey> security(){
-        return Lists.newArrayList(new ApiKey(EntityConstant.AUTHORIZATION,EntityConstant.TOKEN_BEARER,"header"));
+        return Lists.newArrayList(new ApiKey(EntityConstant.AUTHORIZATION,EntityConstant.AUTHORIZATION,"header"));
     }
 }

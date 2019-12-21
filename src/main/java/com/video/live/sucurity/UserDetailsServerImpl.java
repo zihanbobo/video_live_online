@@ -30,6 +30,7 @@ public class UserDetailsServerImpl implements UserDetailsService {
             user = new User();
             user.setUserName(EntityConstant.ANY_ANONYMOUS_USER);
         }
-        return EntityConvert.convert(user, SecurityUserDetails.class);
+        SecurityUserDetails convert = EntityConvert.convert(user, SecurityUserDetails.class);
+        return convert;
     }
 }

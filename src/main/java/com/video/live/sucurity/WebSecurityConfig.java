@@ -1,5 +1,6 @@
 package com.video.live.sucurity;
 
+import com.video.live.common.properties.TokenIgnoreProperties;
 import com.video.live.sucurity.filter.JwtAuthenticationTokenFilter;
 import com.video.live.sucurity.hanlder.AjaxAuthenticationFailureHandler;
 import com.video.live.sucurity.hanlder.AjaxLogoutSuccessHandler;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -47,6 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private TokenIgnoreProperties tokenIgnoreProperties;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(detailsServer).passwordEncoder(passwordEncoder);
@@ -54,8 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        String[] ignores=new String[]{"/*.html","/*.js","/*.css","/*.png","/*.jpg","/login"};
-        web.ignoring().mvcMatchers(ignores);
+        web.ignoring().antMatchers(tokenIgnoreProperties.getIgnoreUris());
     }
 
     @Override
@@ -63,9 +67,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(tokenIgnoreProperties.getIgnoreUris())
+//                .permitAll()
                 .and()
                 .httpBasic().authenticationEntryPoint(entryPointHandler)
                 .and()
+                .addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
@@ -79,8 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("@RBACAuthorityManager.hasPermission(request,authentication)")
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-            http.userDetailsService(detailsServer);
-            http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+            //http.userDetailsService(detailsServer);
     }
 
     public String encoder(String pwd) {
