@@ -1,6 +1,7 @@
-package com.video.live.sucurity;
+package com.video.live.config;
 
 import com.video.live.common.properties.TokenIgnoreProperties;
+import com.video.live.sucurity.UserDetailsServerImpl;
 import com.video.live.sucurity.filter.JwtAuthenticationTokenFilter;
 import com.video.live.sucurity.hanlder.AjaxAuthenticationFailureHandler;
 import com.video.live.sucurity.hanlder.AjaxLogoutSuccessHandler;
