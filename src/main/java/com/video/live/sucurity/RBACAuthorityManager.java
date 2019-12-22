@@ -14,22 +14,20 @@ import java.util.List;
 @Component("RBACAuthorityManager")
 public class RBACAuthorityManager {
 
-    Logger logger= LoggerFactory.getLogger(RBACAuthorityManager.class);
+    Logger logger = LoggerFactory.getLogger(RBACAuthorityManager.class);
+
     public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
         Object principal = authentication.getPrincipal();
+        boolean permit = false;
         if (principal instanceof SecurityUserDetails) {
             SecurityUserDetails userDetails = (SecurityUserDetails) principal;
             String requestURI = request.getRequestURI();
             List<Permission> permissions = userDetails.getPermissions();
             AntPathMatcher antPathMatcher = new AntPathMatcher();
-            logger.info("URL="+requestURI);
-            for (Permission permission : permissions) {
-                boolean match = antPathMatcher.match("/**", requestURI);
-                if (match) {
-                    return true;
-                }
-            }
+            permit = permissions.stream()
+                    .map(Permission::getAllowUri)
+                    .anyMatch(url -> antPathMatcher.match(url, requestURI));
         }
-        return false;
+        return permit;
     }
 }

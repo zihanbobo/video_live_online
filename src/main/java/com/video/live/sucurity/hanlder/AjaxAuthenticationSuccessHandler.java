@@ -1,6 +1,5 @@
 package com.video.live.sucurity.hanlder;
 
-import com.video.live.common.constant.EntityConstant;
 import com.video.live.common.response.ResponseResult;
 import com.video.live.common.util.JWTUtils;
 import com.video.live.sucurity.SecurityUserDetails;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.video.live.common.constant.EntityConstant.AUTHORIZATION;
 import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
 
 /**
@@ -28,8 +26,6 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         SecurityUserDetails details =(SecurityUserDetails) authentication.getPrincipal();
         String token = JWTUtils.generate(details.getUsername());
-       // response.setHeader(AUTHORIZATION, TOKEN_BEARER.concat(token));
-
         ResponseResult.out(response,ResponseResult.success(TOKEN_BEARER.concat(token)));
     }
 }

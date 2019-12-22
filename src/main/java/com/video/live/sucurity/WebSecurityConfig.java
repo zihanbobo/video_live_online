@@ -67,14 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers(tokenIgnoreProperties.getIgnoreUris())
-//                .permitAll()
                 .and()
                 .httpBasic().authenticationEntryPoint(entryPointHandler)
                 .and()
-                .addFilterBefore(jwtAuthenticationTokenFilter,UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
@@ -88,7 +83,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("@RBACAuthorityManager.hasPermission(request,authentication)")
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-            //http.userDetailsService(detailsServer);
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.userDetailsService(detailsServer);
     }
 
     public String encoder(String pwd) {
