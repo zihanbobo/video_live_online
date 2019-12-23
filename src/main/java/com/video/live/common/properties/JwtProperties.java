@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @ToString
 @Component
-public class JWTProperties {
+public class JwtProperties {
 
     @Value("${jwt.salt}")
     private String salt;

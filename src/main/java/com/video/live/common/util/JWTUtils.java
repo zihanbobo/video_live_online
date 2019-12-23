@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.video.live.common.core.SpringContextHolder;
-import com.video.live.common.properties.JWTProperties;
+import com.video.live.common.properties.JwtProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ import java.util.Date;
 public class JWTUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JWTUtils.class);
-    private static final JWTProperties properties = SpringContextHolder.getBean(JWTProperties.class);
+    private static final JwtProperties properties = SpringContextHolder.getBean(JwtProperties.class);
 
     /**
      * 生成token

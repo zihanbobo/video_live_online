@@ -1,6 +1,6 @@
 package com.video.live.config;
 
-import com.video.live.common.properties.TokenIgnoreProperties;
+import com.video.live.common.properties.SecurityProperties;
 import com.video.live.sucurity.UserDetailsServerImpl;
 import com.video.live.sucurity.filter.JwtAuthenticationTokenFilter;
 import com.video.live.sucurity.hanlder.AjaxAuthenticationFailureHandler;
@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -51,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private TokenIgnoreProperties tokenIgnoreProperties;
+    private SecurityProperties securityProperties;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -60,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(tokenIgnoreProperties.getIgnoreUris());
+        web.ignoring().antMatchers(securityProperties.getUris().toArray(new String[0]));
     }
 
     @Override
