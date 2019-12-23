@@ -9,3 +9,7 @@ security:
   ignore:
     uris:
       - /v2/**
+      - /webjars/**
+      - /swagger-resources/**
+      - /error
+      - /*.html
