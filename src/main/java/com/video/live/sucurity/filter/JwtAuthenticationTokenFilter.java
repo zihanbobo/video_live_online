@@ -34,7 +34,7 @@ import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    private static final Logger logger= LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     @Autowired
     private UserDetailsServerImpl userDetailsServer;
@@ -42,15 +42,17 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader(AUTHORIZATION);
-        if (StrUtil.isNotBlank(token) && StrUtil.startWith(token, TOKEN_BEARER)) {
-            token = token.substring(TOKEN_BEARER.length());
+        if (StrUtil.isBlank(token) || !StrUtil.startWith(token, TOKEN_BEARER)) {
+            filterChain.doFilter(request, response);
+            return;
         }
-        if (StrUtil.isNotEmpty(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            String userName = JWTUtils.getUserName(token);
-            if (StrUtil.isBlank(userName)){
-                filterChain.doFilter(request, response);
-                return;
-            }
+        token = token.substring(TOKEN_BEARER.length());
+        String userName = JWTUtils.getUserName(token);
+        if (StrUtil.isBlank(userName)){
+            ResponseResult.out(response,ResponseResult.failed(ResponseEnum.ACCESS_DENIED));
+            return;
+        }
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsServer.loadUserByUsername(userName);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

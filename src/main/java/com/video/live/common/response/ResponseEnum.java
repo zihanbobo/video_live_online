@@ -17,7 +17,7 @@ public enum ResponseEnum {
 
     NO_SUCH_EXCEPTION("资源不存在",4004),
 
-    ACCESS_DENIED("权限不足",4005),
+     ACCESS_DENIED("权限不足",4005),
 
     ACCOUNT_LOCKED("账号被锁定",4006),
 
