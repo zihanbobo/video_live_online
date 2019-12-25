@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public interface UserDao extends BaseDao<User, Long> {
 
-    long countByUserName(String userName);
+    Long countByUserName(String userName);
 
     /**
      * 根据用户名查询用户信息
@@ -20,4 +20,5 @@ public interface UserDao extends BaseDao<User, Long> {
      * @return 用户信息
      */
     Optional<User> findByUserName(String userName);
+
 }

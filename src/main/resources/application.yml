@@ -13,3 +13,4 @@ security:
       - /swagger-resources/**
       - /error
       - /*.html
+      - /druid/**

@@ -5,13 +5,13 @@ import com.video.live.common.util.JWTUtils;
 import com.video.live.dao.RoleDao;
 import com.video.live.dao.UserDao;
 import com.video.live.dao.UserRoleDao;
-import com.video.live.entity.Role;
 import com.video.live.entity.User;
 import com.video.live.entity.UserRole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -46,6 +48,31 @@ public class VideoLiveApplicationTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Test
+    public void redis(){
+        //redisTemplate.setKeySerializer(new StringRedisSerializer());
+        List<User> userList=Lists.newArrayList();
+
+        for (int i=0;i<5;i++){
+            User user=new User();
+            user.setId(Long.valueOf(i));
+            user.setUserName("测试"+i);
+            user.setPassword("password"+i);
+            user.setAge(15);
+            user.setPhone("123455"+i);
+           // userList.add(user);
+           // redisTemplate.opsForSet().add("userSet",user);
+        }
+        Set userSet = redisTemplate.opsForSet().members("userSet");
+        System.out.println(userSet.toString());
+
+
+    }
+
     @Test
     public void addUser(){
         User user=new User();

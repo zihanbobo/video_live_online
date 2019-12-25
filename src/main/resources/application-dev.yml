@@ -1,5 +1,6 @@
 server:
   port: 8081
+# mysql 数据库配置
 spring:
   jpa:
     show-sql: true
@@ -36,3 +37,14 @@ spring:
         login-password: admin@123
         allow: 192.168.40.76
         enabled: true
+# redis 配置
+  redis:
+    database: 0
+    host: 103.45.109.87
+    port: 6379
+    password: video@123
+    jedis:
+      pool:
+        max-active: 8
+        min-idle: 2
+        max-idle: 8
