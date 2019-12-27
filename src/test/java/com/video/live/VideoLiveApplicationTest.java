@@ -65,11 +65,13 @@ public class VideoLiveApplicationTest {
             user.setAge(15);
             user.setPhone("123455"+i);
            // userList.add(user);
-           // redisTemplate.opsForSet().add("userSet",user);
+            redisTemplate.opsForSet().add("userSet",user);
         }
         Set userSet = redisTemplate.opsForSet().members("userSet");
         System.out.println(userSet.toString());
-
+        redisTemplate.opsForHash().put("testsd","test",123);
+        redisTemplate.opsForValue().set("testadf","这是一个测试");
+        redisTemplate.opsForValue().set("数字ad",234234);
 
     }
 

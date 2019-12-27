@@ -18,11 +18,14 @@ import com.video.live.model.input.UserInputDTO;
 import com.video.live.web.service.UserService;
 import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static com.video.live.common.constant.CacheConstant.USER_NAME_CACHE;
 
 
 /**
@@ -64,6 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Cacheable(value = USER_NAME_CACHE, key = "#userName", unless = "#result==null")
     public Optional<User> findByUserName(String userName) {
         User user = userDao.findByUserName(userName).orElse(null);
         if (Objects.isNull(user)) {

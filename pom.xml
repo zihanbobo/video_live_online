@@ -95,11 +95,11 @@
             <version>${okhttp.version}</version>
         </dependency>
 
-        <!--  开发热部署 -->
-        <dependency>
+        <!--  开发热部署 。使用了redis之后，无法使用该功能-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- jwt 安全认证 -->
         <dependency>
