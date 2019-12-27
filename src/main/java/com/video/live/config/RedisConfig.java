@@ -25,49 +25,52 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 
 
 /**
+ * redis缓存配置
+ *
  * @Author: Deng Yunhu
  * @Date: 2019/12/26 10:30
  */
 @Configuration
 @EnableCaching
 @CacheConfig
+@SuppressWarnings("unchecked")
 public class RedisConfig {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         return new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(factory),
-                this.getCacheConfigOfTTL(10, ChronoUnit.SECONDS),
-                this.getRedisCacheConfigMap());
+                this.cacheConfigEntryTtl(10, ChronoUnit.SECONDS),
+                this.redisCacheConfigMap());
     }
 
     @Bean
     @ConditionalOnMissingBean
-    @SuppressWarnings("unchecked")
+
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
-        redisTemplate.setDefaultSerializer(this.getSerializer());
+        redisTemplate.setDefaultSerializer(this.serializer());
         return redisTemplate;
     }
 
-    private Map<String, RedisCacheConfiguration> getRedisCacheConfigMap() {
+    private Map<String, RedisCacheConfiguration> redisCacheConfigMap() {
         // 不同的缓存设置对应的失效时间
         Map<String, RedisCacheConfiguration> cacheConfigurationMap = new HashMap<>();
-        cacheConfigurationMap.put(USER_NAME_CACHE, getCacheConfigOfTTL(23, ChronoUnit.HOURS));
+        cacheConfigurationMap.put(USER_NAME_CACHE, cacheConfigEntryTtl(23, ChronoUnit.HOURS));
         return cacheConfigurationMap;
     }
 
-    private RedisCacheConfiguration getCacheConfigOfTTL(long time, TemporalUnit timeUnit) {
+    private RedisCacheConfiguration cacheConfigEntryTtl(long time, TemporalUnit timeUnit) {
         return RedisCacheConfiguration
                 .defaultCacheConfig()
                 .serializeKeysWith(fromSerializer(RedisSerializer.string()))
-                .serializeValuesWith(fromSerializer(this.getSerializer()))
+                .serializeValuesWith(fromSerializer(this.serializer()))
                 .disableCachingNullValues()
                 .entryTtl(Duration.of(time, timeUnit));
     }
 
     //使用FastJson代替JdkSerializer
-    private RedisSerializer getSerializer() {
+    private RedisSerializer serializer() {
         return new FastJsonRedisSerializer(Object.class);
     }
 }
