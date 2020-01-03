@@ -30,7 +30,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest
@@ -63,13 +65,17 @@ public class VideoLiveApplicationTest {
 
     @Test
     public void testQuartz() throws InterruptedException {
-        jobSupport.addJob(TestJobImpl.class,"0/1 * * * * ? * " ,"任务名","任务组");
+        Map<String,String> param=new HashMap<>();
+        param.put("name","-任务1-");
+        jobSupport.addJob(TestJobImpl.class,"0/1 * * * * ? * " ,"任务名1","任务组1",param);
+        param.put("name","-任务2-");
+        jobSupport.addJob(TestJobImpl.class,"0/1 * * * * ? * " ,"任务名2","任务组2",param);
         Thread.sleep(60000);
     }
 
     @Test
     public void schedule(){
-        videoController.testSche();
+        videoController.testSche("name");
     }
 
     @Test
@@ -101,7 +107,7 @@ public class VideoLiveApplicationTest {
         user.setAge(15);
         user.setSex("男");
         user.setPassword(passwordEncoder.encode("root@123"));
-        user.setUserName("root");
+        user.setUserName("dyh");
         user.setPhone("13227805078");
         Long id = userDao.save(user).getId();
         UserRole userRole=new UserRole();

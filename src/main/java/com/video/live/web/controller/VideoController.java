@@ -48,8 +48,8 @@ public class VideoController {
     }
 
     //@Scheduled(cron = "0/1 * * * * ?")
-    public void testSche(){
-        System.out.println(LocalTime.now() +Thread.currentThread().getName()+" --- 这是一个定时任务的测试--1");
+    public void testSche(String name){
+        System.out.println(LocalTime.now() +Thread.currentThread().getName()+"-"+name+" --- 这是一个定时任务的测试--1");
     }
 
     //@Scheduled(cron = "0/1 * * * * ?")

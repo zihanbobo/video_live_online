@@ -22,6 +22,7 @@ import static com.video.live.common.constant.EntityConstant.TOKEN_BEARER;
  */
 @Component
 public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         SecurityUserDetails details =(SecurityUserDetails) authentication.getPrincipal();
