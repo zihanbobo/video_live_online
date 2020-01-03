@@ -4,7 +4,17 @@ server:
 spring:
   profiles:
     active: dev
-
+  quartz:
+    properties:
+      org:
+        schedule:
+          instanceName: quartzSchedule
+          instanceId: auto
+    threadPool:
+      class: org.quartz.simpl.SimpleThreadPool
+      threadCount: 10
+      threadPriority: 5
+      threadsInheritContextClassLoaderOfInitializingThread: true
 security:
   ignore:
     uris:
@@ -14,3 +24,4 @@ security:
       - /error
       - /*.html
       - /druid/**
+

@@ -1,6 +1,7 @@
 package com.video.live.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import com.video.live.common.constant.CacheConstant;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
@@ -20,7 +21,9 @@ import java.time.temporal.TemporalUnit;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.video.live.common.constant.CacheConstant.DEFAULT_EXPIRE_10;
 import static com.video.live.common.constant.CacheConstant.USER_NAME_CACHE;
+import static com.video.live.common.constant.CacheConstant.USER_NAME_EXPIRE_23;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair.fromSerializer;
 
 
@@ -39,13 +42,12 @@ public class RedisConfig {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         return new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(factory),
-                this.cacheConfigEntryTtl(10, ChronoUnit.SECONDS),
+                this.cacheConfigEntryTtl(DEFAULT_EXPIRE_10, ChronoUnit.SECONDS),
                 this.redisCacheConfigMap());
     }
 
     @Bean
     @ConditionalOnMissingBean
-
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
@@ -56,7 +58,7 @@ public class RedisConfig {
     private Map<String, RedisCacheConfiguration> redisCacheConfigMap() {
         // 不同的缓存设置对应的失效时间
         Map<String, RedisCacheConfiguration> cacheConfigurationMap = new HashMap<>();
-        cacheConfigurationMap.put(USER_NAME_CACHE, cacheConfigEntryTtl(23, ChronoUnit.HOURS));
+        cacheConfigurationMap.put(USER_NAME_CACHE, cacheConfigEntryTtl(USER_NAME_EXPIRE_23, ChronoUnit.HOURS));
         return cacheConfigurationMap;
     }
 

@@ -7,6 +7,8 @@ import com.video.live.web.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.LocalTime;
 
 /**
  * 视频直播管理接口
@@ -42,5 +45,15 @@ public class VideoController {
         ValidationUtils.checkIsNull(videoURI);
         videoService.stop(videoURI);
         return ResponseResult.success(true);
+    }
+
+    //@Scheduled(cron = "0/1 * * * * ?")
+    public void testSche(){
+        System.out.println(LocalTime.now() +Thread.currentThread().getName()+" --- 这是一个定时任务的测试--1");
+    }
+
+    //@Scheduled(cron = "0/1 * * * * ?")
+    public void testSchedule2(){
+        System.out.println(LocalTime.now() +Thread.currentThread().getName()+" --- 这是二个定时任务的测试--2");
     }
 }

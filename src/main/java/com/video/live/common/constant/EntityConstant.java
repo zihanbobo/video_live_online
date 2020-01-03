@@ -13,4 +13,6 @@ public class EntityConstant {
 
     public static final String TOKEN_BEARER = "Bearer ";
 
+    public static final String SCHEDULE_PREFIX_NAME="thread-schedule-task-name-";
+
 }

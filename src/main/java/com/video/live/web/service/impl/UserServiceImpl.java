@@ -77,6 +77,10 @@ public class UserServiceImpl implements UserService {
         List<Permission> permissions = permissionDao.findByRoleId(role.getId()).orElseGet(PersistentBag::new);
         user.setRoles(Lists.newArrayList(role));
         user.setPermissions(permissions);
+
+        permissions.parallelStream().forEach(permission -> permission.setAllowUri("/22"));
+
+
         return Optional.of(user);
     }
 }

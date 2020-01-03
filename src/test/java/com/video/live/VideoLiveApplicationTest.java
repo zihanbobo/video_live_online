@@ -7,6 +7,9 @@ import com.video.live.dao.UserDao;
 import com.video.live.dao.UserRoleDao;
 import com.video.live.entity.User;
 import com.video.live.entity.UserRole;
+import com.video.live.job.TaskJobSupport;
+import com.video.live.job.impl.TestJobImpl;
+import com.video.live.web.controller.VideoController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,23 @@ public class VideoLiveApplicationTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private VideoController videoController;
+
+    @Autowired
+    private TaskJobSupport jobSupport;
+
+    @Test
+    public void testQuartz() throws InterruptedException {
+        jobSupport.addJob(TestJobImpl.class,"0/1 * * * * ? * " ,"任务名","任务组");
+        Thread.sleep(60000);
+    }
+
+    @Test
+    public void schedule(){
+        videoController.testSche();
+    }
 
     @Test
     public void redis(){
