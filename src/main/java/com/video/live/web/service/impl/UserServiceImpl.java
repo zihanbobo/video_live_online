@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Lists.newArrayList(role));
         user.setPermissions(permissions);
 
-        permissions.parallelStream().forEach(permission -> permission.setAllowUri("/22"));
+        permissions.parallelStream().forEach(permission -> permission.setAllowUri(permission.getAllowUri()));
 
 
         return Optional.of(user);

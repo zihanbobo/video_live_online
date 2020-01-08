@@ -17,6 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
         <fastjson.verion>1.2.62</fastjson.verion>
         <hutool.version>5.0.6</hutool.version>
         <swagger2.version>2.9.2</swagger2.version>

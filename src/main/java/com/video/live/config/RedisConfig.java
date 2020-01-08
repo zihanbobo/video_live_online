@@ -13,6 +13,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.time.Duration;
@@ -73,6 +74,6 @@ public class RedisConfig {
 
     //使用FastJson代替JdkSerializer
     private RedisSerializer serializer() {
-        return new FastJsonRedisSerializer(Object.class);
+        return new GenericJackson2JsonRedisSerializer();
     }
 }
