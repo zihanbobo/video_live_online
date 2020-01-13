@@ -24,6 +24,8 @@
         <swagger-ui.version>1.9.6</swagger-ui.version>
         <mysql-driver.version>8.0.17</mysql-driver.version>
         <okhttp.version>4.1.0</okhttp.version>
+        <image.version>1.0.1</image.version>
+        <image-name>video-test</image-name>
     </properties>
 
     <dependencies>
@@ -144,6 +146,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!--  使用dockerfile-maven-plugin插件制作video镜像  -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${image-name}</repository>
+                    <tag>${image.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                    <dockerfile>${project.basedir}</dockerfile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
