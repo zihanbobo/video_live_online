@@ -3,7 +3,7 @@
 #### 介绍
 本项目为记录实际开发过程中的一次直播需求开发
 #### 软件架构
-基于SpringBoot + JPA框架 + Quertz任务调度 + MySQL数据库 + Redis缓存 + WebSocket实时通讯 + Spring Security实现RBAC权限控制 +JWT token校验 + JpaAuditing + FFMPEG推流 + Nginx+Nginx-RTMP-Module开发的视频在线直播功能
+基于SpringBoot + JPA框架 + Quertz任务调度 + MySQL数据库 + Redis缓存 + WebSocket实时通讯 + Spring Security实现RBAC权限控制 +JWT token校验 + JpaAuditing + FFMPEG推流 + Nginx+Nginx-RTMP-Module开发的视频在线直播功能。打包安装采用的是docker虚拟化。
 
 #### 安装教程
 
