@@ -22,8 +22,10 @@ services:
       MYSQL_DATABASE : video
       MYSQL_USER : video
       MYSQL_PASSWORD : video@123
+    volumes:
+      - "/opt/video/mysql/logs:/var/log/mysql"
+      - "/opt/video/mysql/conf:/etc/mysql"
     container_name: mysql
-
   redis:
     image: redis:5.0.7
     restart: always
@@ -41,6 +43,8 @@ services:
     volumes:
       - "/opt/video/app:/opt/video/app"
     working_dir: /opt/video/app
+    cap_add:
+      - "SYS_PTRACE"
     depends_on:
       - mysql
       - redis
