@@ -42,7 +42,7 @@ public class VideoStreamUtils {
     public static synchronized String play(String videoURI, int timeOut) {
         VideoTaskInfo taskInfo = getTaskInfo(videoURI);
         if (Objects.nonNull(taskInfo)) {
-            timeOut = timeOut < MIN_TIME_OUT ? MIN_TIME_OUT : timeOut;
+            timeOut = Math.max(MIN_TIME_OUT, timeOut);
             taskInfo = execute(videoURI, timeOut);
             STREAM_MAP.put(videoURI, taskInfo);
         }
