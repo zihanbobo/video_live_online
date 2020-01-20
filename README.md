@@ -2,8 +2,11 @@
 
 #### 介绍
 本项目为记录实际开发过程中的一次直播需求开发
+#### 系统架构
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0119/105034_10363187_1732571.png "系统建构.png")
+这是腾讯云直播系统架构图，本系统也希望按照这个架构来实现。
 #### 软件架构
-基于SpringBoot + JPA框架 + Quertz任务调度 + MySQL数据库 + Redis缓存 + WebSocket实时通讯 + Spring Security实现RBAC权限控制 +JWT token校验 + JpaAuditing + FFMPEG推流 + Nginx+Nginx-RTMP-Module开发的视频在线直播功能
+基于SpringBoot + JPA框架 + Quertz任务调度 + MySQL数据库 + Redis缓存 + WebSocket实时通讯 + Spring Security实现RBAC权限控制 +JWT token校验 + JpaAuditing + FFMPEG推流 + Nginx+Nginx-RTMP-Module开发的视频在线直播功能。打包安装采用的是docker虚拟化。
 
 #### 安装教程
 
