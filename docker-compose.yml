@@ -27,10 +27,9 @@ services:
       MYSQL_HOME: /opt/mysql/home
     volumes:
       - "/opt/video/mysql/logs:/var/log/mysql"
-
       - "/opt/video/mysql/data:/var/lib/mysql"
       - "/etc/localtime:/etc/localtime"
-      # "/opt/video/mysql/init-sql:/docker-entrypoint-initdb.d"
+      # "/opt/video/mysql/init-sql:/docker-entrypoint-initdb.d" 初始化sql脚本
       # "/opt/video/mysql/conf/my.cnf:/etc/mysql/my.cnf.ro"
     container_name: mysql
   redis:
