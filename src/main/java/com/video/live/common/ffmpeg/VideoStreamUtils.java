@@ -62,9 +62,14 @@ public class VideoStreamUtils {
             standardListener = StandardStreamListener.build(videoURI, getHLSPath(taskId), countDownLatch, process.getInputStream());
             ThreadPoolUtil.execute(standardListener);
             ThreadPoolUtil.execute(errorListener);
-            countDownLatch.await(timeOut, TimeUnit.SECONDS);
+            boolean await = countDownLatch.await(timeOut, TimeUnit.SECONDS);
+            if (!await){
+                destroy(process, errorListener, standardListener);
+                throw new ServerException("视频流推送失败");
+            }
             if (!standardListener.getExecuteResult()) {
                 destroy(process, errorListener, standardListener);
+                throw new ServerException("视频流推送失败");
             }
             return VideoTaskInfo.build(taskId, process, errorListener, standardListener);
 

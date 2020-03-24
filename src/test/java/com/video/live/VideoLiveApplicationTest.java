@@ -1,5 +1,9 @@
 package com.video.live;
 
+import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.google.common.collect.Lists;
 import com.video.live.common.util.JWTUtils;
 import com.video.live.dao.RoleDao;
@@ -127,7 +131,7 @@ public class VideoLiveApplicationTest {
 
     @Test
     public void contextLoads() {
-        String pictureURL = new String("http://wprd01.is.autonavi.com/appmaptile?x=6&y=3&z=4&lang=zh_cn&size=1&scl=1&style=7".getBytes(),StandardCharsets.UTF_8);
+        /*String pictureURL = new String("http://wprd01.is.autonavi.com/appmaptile?x=6&y=3&z=4&lang=zh_cn&size=1&scl=1&style=7".getBytes(),StandardCharsets.UTF_8);
         String storagePath = "D:\\test.png";
         try {
 
@@ -143,7 +147,14 @@ public class VideoLiveApplicationTest {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+    }
+
+    @Test
+    public void rsa(){
+        RSA rsa=new RSA();
+        String encode = Base64.encode(rsa.encrypt("123", KeyType.PrivateKey));
+        System.out.println(encode);
     }
 
 }

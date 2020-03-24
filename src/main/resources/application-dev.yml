@@ -11,7 +11,7 @@ spring:
     druid:
       username: video
       password: video@123
-      url: jdbc:mysql://103.45.109.87:3306/video?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+      url: jdbc:mysql://103.45.109.87:3306/video?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
       driver-class-name: com.mysql.cj.jdbc.Driver
       min-idle: 5
       initial-size: 5

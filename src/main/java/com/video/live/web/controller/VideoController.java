@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public class VideoController {
 
     @ApiOperation(value = "播放视频")
     @PostMapping("/video/play")
-    public ResponseResult<String> videoPlay(@RequestBody @Valid VideoInputDTO inputDTO, BindingResult bindResult) {
+    public ResponseResult<String> videoPlay(@RequestBody @Validated VideoInputDTO inputDTO, BindingResult bindResult) {
         ValidationUtils.checkBindingResult(bindResult);
         String hlsURI = videoService.play(inputDTO.getVideoURI(), inputDTO.getTimeOut());
         return ResponseResult.success(hlsURI);

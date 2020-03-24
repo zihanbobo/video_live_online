@@ -39,9 +39,9 @@ public class RestTemplateConfig {
     @Bean
     public OkHttp3ClientHttpRequestFactory restTemplateFactory() {
         OkHttp3ClientHttpRequestFactory httpRequestFactory = new OkHttp3ClientHttpRequestFactory();
-        httpRequestFactory.setConnectTimeout(properties.getConnectTimeOut());
-        httpRequestFactory.setReadTimeout(properties.getReadTimeOut());
-        httpRequestFactory.setWriteTimeout(properties.getWriteTimeOut());
+        httpRequestFactory.setConnectTimeout(5000);
+        httpRequestFactory.setReadTimeout(5000);
+        httpRequestFactory.setWriteTimeout(5000);
         return httpRequestFactory;
     }
 

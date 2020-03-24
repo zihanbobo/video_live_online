@@ -6,7 +6,7 @@ services:
       - 80:80
       - 443:443
       - 1935:1935
-    image: alqutami/rtmp-hls:latest
+    image: nginx/rtmp-hls:latest
     restart: always
     volumes:
       - "/opt/video/nginx/log:/var/log/nginx"
@@ -17,7 +17,7 @@ services:
   mysql:
     ports:
       - 3306:3306
-    image: mysql:5.7
+    image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD : dengyunhu@123
@@ -35,8 +35,9 @@ services:
   redis:
     ports:
       - 6379:6379
-    image: redis:5.0.7
+    image: redis:latest
     restart: always
+    command: redis-server --requirepass video@123
     volumes:
       - "/opt/video/redis/redis.conf:/usr/local/redis/redis.conf"
       - "/opt/video/redis/data:/data"
@@ -44,7 +45,7 @@ services:
   video:
     ports:
       - 8081:8081
-    image: video:1.0.1
+    image: live/video:latest
     restart: always
     environment:
       - "SPRING_PROFILES_ACTIVE=dev"
