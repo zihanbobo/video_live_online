@@ -1,6 +1,7 @@
 package com.video.live;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
@@ -107,17 +108,20 @@ public class VideoLiveApplicationTest {
 
     @Test
     public void addUser(){
-        User user=new User();
-        user.setAge(15);
-        user.setSex("男");
-        user.setPassword(passwordEncoder.encode("root@123"));
-        user.setUserName("dyh");
-        user.setPhone("13227805078");
-        Long id = userDao.save(user).getId();
-        UserRole userRole=new UserRole();
-        userRole.setUserId(id);
-        userRole.setRoleId(1L);
-        UserRole save = userRoleDao.save(userRole);
+        int i=800000;
+        int endNumber=1000000;
+        List<User> list=Lists.newArrayListWithExpectedSize(endNumber);
+        for (;i<=endNumber;i++){
+            User user=new User();
+            user.setAge(20);
+            user.setSex("男");
+            user.setPassword("sdfsdffasdfasdfasdf");
+            user.setUserName("李荣浩"+i);
+            user.setPhone("13254786912");
+            list.add(user);
+            System.out.println(i);
+        }
+        userDao.saveAll(list);
     }
 
     @Test

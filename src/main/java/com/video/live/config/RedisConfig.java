@@ -1,7 +1,6 @@
 package com.video.live.config;
 
-import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
-import com.video.live.common.constant.CacheConstant;
+import com.video.live.common.constant.TopicEnum;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
@@ -11,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
@@ -20,7 +22,9 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.video.live.common.constant.CacheConstant.DEFAULT_EXPIRE_10;
 import static com.video.live.common.constant.CacheConstant.USER_NAME_CACHE;
@@ -54,6 +58,27 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setDefaultSerializer(this.serializer());
         return redisTemplate;
+    }
+
+    /**
+     * 注入Redis消息监听容器，实现消息的发布和订阅
+     *
+     * @param factory
+     * @param listenerAdapter
+     * @return
+     */
+    @Bean
+    public RedisMessageListenerContainer messageListenerContainer(RedisConnectionFactory factory, MessageListener listenerAdapter) {
+        RedisMessageListenerContainer listenerContainer = new RedisMessageListenerContainer();
+        listenerContainer.setConnectionFactory(factory);
+        listenerContainer.addMessageListener(listenerAdapter, listTopic());
+        return listenerContainer;
+    }
+
+    private List<PatternTopic> listTopic() {
+        return TopicEnum.topicList.stream()
+                .map(topic -> new PatternTopic(topic))
+                .collect(Collectors.toList());
     }
 
     private Map<String, RedisCacheConfiguration> redisCacheConfigMap() {

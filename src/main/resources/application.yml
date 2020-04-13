@@ -2,6 +2,8 @@ server:
   servlet:
     context-path: /video
 spring:
+  application:
+    name: video
   profiles:
     active: dev
   quartz:
@@ -24,4 +26,7 @@ security:
       - /error
       - /*.html
       - /druid/**
+      - /templates/**
+      - /test/**
+
 

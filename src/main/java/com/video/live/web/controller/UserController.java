@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +32,10 @@ public class UserController {
         ValidationUtils.checkBindingResult(bindingResult);
         userService.addUser(inputDTO);
         return ResponseResult.success(null);
+    }
+
+    @GetMapping(value = "/test")
+    public String test(){
+        return "I am video .Good Luck .You Success";
     }
 }
