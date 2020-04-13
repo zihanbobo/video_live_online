@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true,jsr250Enabled = true)
-@EnableDiscoveryClient
+@EnableDiscoveryClient(autoRegister = false)
 public class VideoLiveApplication {
     public static void main(String[] args) {
         SpringApplication.run(VideoLiveApplication.class, args);
